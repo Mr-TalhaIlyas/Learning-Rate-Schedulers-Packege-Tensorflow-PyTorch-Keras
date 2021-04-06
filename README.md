@@ -15,11 +15,11 @@ Learning rate schedules aim to change the learning rate during neural netowrk tr
 * Exponential Decay with Burnin
 * SGDR 
 This SGDR further has two varients,
-1. STOCHASTIC GRADIENT DESCENT WITH WARM RESTARTS
-2. STOCHASTIC GRADIENT DESCENT WITH WARMUP
+        1. STOCHASTIC GRADIENT DESCENT WITH WARM RESTARTS
+        2. STOCHASTIC GRADIENT DESCENT WITH WARMUP
 
 
-## Step Decay
+### Step Decay
 Drop learning rate after certain epochs (i.e., `drop_epoch`) by a factor of `lr_decay`.
 
 #### Implementation, Hyperparamenters and Constants
@@ -37,7 +37,7 @@ def step_decay(epoch, initial_lr, lr_decay, drop_epoch):
     return lrate
 ```
 
-## Exponential Decay
+### Exponential Decay
 Drop learning rate exponentially.
 
 #### Implementation, Hyperparamenters and Constants
@@ -51,7 +51,7 @@ def exp_decay(epoch, initial_lr, Epoch):
     lrate = initial_lr * np.exp(-k*epoch)
     return lrate
 ```
-## Cosine Decay
+### Cosine Decay
 A learning rate schedule that uses a cosine decay schedule
 
 #### Implementation, Hyperparamenters and Constants
@@ -69,7 +69,7 @@ def cosine_decay(epoch, initial_lr, Epoch):
 # Equivelant to,
 tf.keras.experimental.CosineDecay(initial_learning_rate, decay_steps, alpha=0.0)
 ```
-## Cosine Decay
+### Cosine Decay
 A learning rate schedule that uses a cosine decay schedule
 details [here](https://arxiv.org/abs/1608.03983)
 #### Implementation, Hyperparamenters and Constants
@@ -88,7 +88,7 @@ def cosine_decay(epoch, initial_lr, Epoch):
 tf.keras.experimental.CosineDecay(initial_learning_rate, decay_steps, alpha=0.0)
 ```
 
-## K-Decay
+### K-Decay
 A new LR schedule.with a new hyper-parameter k controls the change degree of LR, whereas the original method of k at 1.
 details [here](https://arxiv.org/abs/2004.05909)
 #### Implementation, Hyperparamenters and Constants
@@ -103,7 +103,7 @@ def K_decay(t = x,L0=inint_lr,Le=final_lr,T=Epoch,N=N,k=k):
     return lr
 ```
 
-## Polynomial Decay
+### Polynomial Decay
 A Polynomial Decay policy.
 details [here](https://ieeexplore.ieee.org/document/8929465)
 #### Implementation, Hyperparamenters and Constants
@@ -117,7 +117,7 @@ def polynomial_decay(epoch, initial_lr, Epoch, power):
     lrate = initial_lrate * math.pow((1-(epoch/Epoch)),power)
     return lrate
 ```
-##### Usage
+## Usage
 For all above LR schedules you can create a custom function callback as follows,
 Here I combined 3 schedules (`step`, `poly` and `k`) from the above list in one callback
 ```python
@@ -174,11 +174,11 @@ for i in range(len(x)):
     k_d.append(z)
 plt.plot(x, k_d, 'g', label = 'K_decay')
 ```
-img 1
+![alt-text](https://github.com/Mr-TalhaIlyas/Learning-Rate-Schedulers-Packege-Tensorflow-PyTorch-Keras/blob/main/screens/img1.png)
 
 ## SGDR
 See [Loshchilov & Hutter, ICLR2016], SGDR: Stochastic Gradient Descent with Warm Restarts. https://arxiv.org/abs/1608.03983
-#### STOCHASTIC GRADIENT DESCENT WITH WARM RESTARTS
+### STOCHASTIC GRADIENT DESCENT WITH WARM RESTARTS
 See the code and comments for details
 ```python
 class SGDRScheduler(Callback):
@@ -270,7 +270,7 @@ class SGDRScheduler(Callback):
 LR_schedule = SGDRScheduler(min_lr=1e-7, max_lr=initial_lr, steps_per_epoch=num_images/Batch_size,
                                 lr_decay=lr_decay,cycle_length=cycle,mult_factor=mul_factor)
 ```
-#### STOCHASTIC GRADIENT DESCENT WITH WARMUP
+### STOCHASTIC GRADIENT DESCENT WITH WARMUP
 See the code and comments for details
 ```
 def cosine_decay_with_warmup(global_step,
