@@ -272,7 +272,7 @@ LR_schedule = SGDRScheduler(min_lr=1e-7, max_lr=initial_lr, steps_per_epoch=num_
 ```
 ### STOCHASTIC GRADIENT DESCENT WITH WARMUP
 See the code and comments for details
-```
+```python
 def cosine_decay_with_warmup(global_step,
                              learning_rate_base,
                              total_steps,
@@ -456,7 +456,7 @@ def exponential_decay_with_burnin(global_step,
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import Sequential
-imoprt numpy as np
+import numpy as np
 
 sample_count = num_images
 data = np.random.random((sample_count, 100))
