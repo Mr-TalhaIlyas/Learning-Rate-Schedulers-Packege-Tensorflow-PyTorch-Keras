@@ -15,6 +15,7 @@ Learning rate schedules aim to change the learning rate during neural netowrk tr
 * Exponential Decay with Burnin
 * SGDR 
 This SGDR further has two varients,
+
         1. STOCHASTIC GRADIENT DESCENT WITH WARM RESTARTS
         2. STOCHASTIC GRADIENT DESCENT WITH WARMUP
 
@@ -265,11 +266,14 @@ class SGDRScheduler(Callback):
         '''Set weights to the values from the end of the most recent cycle for best performance.'''
         self.model.set_weights(self.best_weights)
 ```
-##### Usage
+### **Usage**
 ```python
 LR_schedule = SGDRScheduler(min_lr=1e-7, max_lr=initial_lr, steps_per_epoch=num_images/Batch_size,
                                 lr_decay=lr_decay,cycle_length=cycle,mult_factor=mul_factor)
 ```
+#### Visual Curve
+![alt-text](https://github.com/Mr-TalhaIlyas/Learning-Rate-Schedulers-Packege-Tensorflow-PyTorch-Keras/blob/main/screens/sgdlr.png)
+
 ### STOCHASTIC GRADIENT DESCENT WITH WARMUP
 See the code and comments for details
 ```python
@@ -372,16 +376,21 @@ class WarmUpCosineDecayScheduler(Callback):
         print('\nBatch %05d: setting learning rate to %s.' % (self.global_step + 1, lr))
 ```
 
-##### Usage
+### **Usage**
 ```python
 LR_schedule = WarmUpCosineDecayScheduler(learning_rate_base=initial_lr,
                                          total_steps=int(Epoch * num_images/Batch_size),
                                          warmup_learning_rate=0.0,
                                          warmup_steps=int(warmup_epoch * num_images/Batch_size))
 ```
+#### Visual Curve
+![alt-text](https://github.com/Mr-TalhaIlyas/Learning-Rate-Schedulers-Packege-Tensorflow-PyTorch-Keras/blob/main/screens/lrw.png)
+
 ### Exponential Decay with Burnin
 In this schedule, learning rate is fixed at burnin_learning_ratefor a fixed period, before transitioning to a regular exponential decay schedule.
+
 ⚠ Still a work in progress.
+
 **Numpy**
 ```python
 def exp_burnin_decay(burnin_epoch, burnin_lr, epoch, initial_lr, Epoch):
