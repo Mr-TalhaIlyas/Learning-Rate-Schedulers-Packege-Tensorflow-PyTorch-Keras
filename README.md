@@ -16,8 +16,8 @@ Learning rate schedules aim to change the learning rate during neural netowrk tr
 * SGDR 
 This SGDR further has two varients,
 
-        1. STOCHASTIC GRADIENT DESCENT WITH WARM RESTARTS
-        2. STOCHASTIC GRADIENT DESCENT WITH WARMUP
+1. STOCHASTIC GRADIENT DESCENT WITH WARM RESTARTS
+2. STOCHASTIC GRADIENT DESCENT WITH WARMUP
 
 
 ### Step Decay
