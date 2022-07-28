@@ -385,6 +385,83 @@ LR_schedule = WarmUpCosineDecayScheduler(learning_rate_base=initial_lr,
 ```
 #### Visual Curve
 ![alt-text](https://github.com/Mr-TalhaIlyas/Learning-Rate-Schedulers-Packege-Tensorflow-PyTorch-Keras/blob/main/screens/lrw.png)
+#### Warmup Cosine Decay Schedular by subclassing `tf.keras.optimziers.schedules.LearningRateSchedule`
+
+```python
+class WarmupCosineDecayLRScheduler(
+  tf.keras.optimizers.schedules.LearningRateSchedule):
+
+    def __init__(self, 
+                  max_lr: float,
+                  warmup_steps: int,
+                  decay_steps: int,
+                  alpha: float = 0.) -> None:
+        super(WarmupCosineDecayLRScheduler, self).__init__()
+
+        self.name = 'WarmupCosineDecayLRScheduler'
+        self.alpha = alpha
+
+        self.max_lr = max_lr
+        self.last_step = 0
+
+        self.warmup_steps = int(warmup_steps)
+        self.linear_increase = self.max_lr / float(self.warmup_steps)
+
+        self.decay_steps = int(decay_steps)
+
+    def _decay(self):
+        rate = tf.subtract(self.last_step, self.warmup_steps) 
+        rate = tf.divide(rate, self.decay_steps)
+        rate = tf.cast(rate, tf.float32)
+
+        cosine_decayed = tf.multiply(tf.constant(math.pi), rate)
+        cosine_decayed = tf.add(1., tf.cos(cosine_decayed))
+        cosine_decayed = tf.multiply(.5, cosine_decayed)
+
+        decayed = tf.subtract(1., self.alpha)
+        decayed = tf.multiply(decayed, cosine_decayed)
+        decayed = tf.add(decayed, self.alpha)
+        return tf.multiply(self.max_lr, decayed)
+
+    def __call__(self, step):
+      self.last_step = step
+      lr_s = tf.cond(
+                    tf.less(self.last_step, self.warmup_steps),
+                    lambda: tf.multiply(self.linear_increase, self.last_step),
+                    lambda: self._decay())
+      return lr_s
+
+    def get_config(self) -> dict:
+        config = {
+            "max_lr": self.max_lr,
+            "warmup_steps": self.warmup_steps,
+            'decay_steps': self.decay_steps,
+            'alpha': self.alpha
+        }
+        return config
+```
+#### Uage
+ 
+```python
+LR_schedule = WarmupCosineDecayLRScheduler(max_lr=initial_lr,
+                                          decay_steps=int(Epoch * (train_paths)/batch_size),
+                                          warmup_steps=int(warmup_epoch * (train_paths)/batch_size))
+optimizer = tf.keras.optimizers.Adam(LR_schedule, beta_1=0.9, beta_2=0.98,
+                                     epsilon=1e-9)                                         
+```
+### Exponential Decay with Warmstart
+
+Introduced in [Transformers]() used for [ViT]()
+
+```python
+
+```
+#### Usage
+
+```python 
+
+```
+
 
 ### Exponential Decay with Burnin
 In this schedule, learning rate is fixed at burnin_learning_ratefor a fixed period, before transitioning to a regular exponential decay schedule.
