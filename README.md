@@ -454,14 +454,31 @@ optimizer = tf.keras.optimizers.Adam(LR_schedule, beta_1=0.9, beta_2=0.98,
 Introduced in [Transformers]() used for [ViT]()
 
 ```python
+class ExponentialDecaywithWarmstart(tf.keras.optimizers.schedules.LearningRateSchedule):
+  def __init__(self, d_model=128, warmup_steps=4000):
+    super(CustomSchedule, self).__init__()
 
+    self.d_model = d_model
+    self.d_model = tf.cast(self.d_model, tf.float32)
+
+    self.warmup_steps = warmup_steps
+
+  def __call__(self, step):
+    #print(step)
+    arg1 = tf.math.rsqrt(step)
+    arg2 = step * (self.warmup_steps ** -1.5)
+
+    return tf.math.rsqrt(self.d_model) * tf.math.minimum(arg1, arg2)
 ```
 #### Usage
 
 ```python 
-
+LR_schedule = ExponentialDecaywithWarmstart(d_model=2048)
+optimizer = tf.keras.optimizers.Adam(LR_schedule, beta_1=0.9, beta_2=0.98,
+                                     epsilon=1e-9)     
 ```
-
+#### Visual Curve
+![alt-text](https://github.com/Mr-TalhaIlyas/Learning-Rate-Schedulers-Packege-Tensorflow-PyTorch-Keras/blob/main/screens/tf_lr.png)
 
 ### Exponential Decay with Burnin
 In this schedule, learning rate is fixed at burnin_learning_ratefor a fixed period, before transitioning to a regular exponential decay schedule.
