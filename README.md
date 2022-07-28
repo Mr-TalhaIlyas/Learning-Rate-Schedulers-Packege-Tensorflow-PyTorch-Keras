@@ -53,24 +53,7 @@ def exp_decay(epoch, initial_lr, Epoch):
     lrate = initial_lr * np.exp(-k*epoch)
     return lrate
 ```
-### Cosine Decay
-A learning rate schedule that uses a cosine decay schedule
 
-#### Implementation, Hyperparamenters and Constants
-```python
-alpha=0.0
-```
-
-```python
-def cosine_decay(epoch, initial_lr, Epoch):
-    alpha=0.0
-    epoch = min(epoch, Epoch)
-    cosine_decay = 0.5 * (1 + np.cos(np.pi * epoch / Epoch))
-    decayed = (1 - alpha) * cosine_decay + alpha
-    return initial_lr * decayed
-# Equivelant to,
-tf.keras.experimental.CosineDecay(initial_learning_rate, decay_steps, alpha=0.0)
-```
 ### Cosine Decay
 A learning rate schedule that uses a cosine decay schedule
 details [here](https://arxiv.org/abs/1608.03983)
