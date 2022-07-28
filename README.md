@@ -451,7 +451,7 @@ optimizer = tf.keras.optimizers.Adam(LR_schedule, beta_1=0.9, beta_2=0.98,
 ```
 ### Exponential Decay with Warmstart
 
-Introduced in [Transformers]() used for [ViT]()
+Introduced in [Transformers](https://arxiv.org/abs/1706.03762) used for [ViT](https://arxiv.org/abs/2010.11929)
 
 ```python
 class ExponentialDecaywithWarmstart(tf.keras.optimizers.schedules.LearningRateSchedule):
