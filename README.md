@@ -20,6 +20,7 @@ This SGDR further has two varients,
 2. STOCHASTIC GRADIENT DESCENT WITH WARMUP
 
 #### For [Loss-Functions-Package-Tensorflow-Keras-PyTorch](https://github.com/Mr-TalhaIlyas/Loss-Functions-Package-Tensorflow-Keras-PyTorch/blob/main/README.md)
+#### For [Evaluation-Metrics-Package-Tensorflow-PyTorch-Keras](https://github.com/Mr-TalhaIlyas/Evaluation-Metrics-Package-Tensorflow-PyTorch-Keras/)
 
 ### Step Decay
 Drop learning rate after certain epochs (i.e., `drop_epoch`) by a factor of `lr_decay`.
