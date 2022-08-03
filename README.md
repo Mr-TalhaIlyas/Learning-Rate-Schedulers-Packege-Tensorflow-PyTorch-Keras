@@ -19,7 +19,7 @@ This SGDR further has two varients,
 1. STOCHASTIC GRADIENT DESCENT WITH WARM RESTARTS
 2. STOCHASTIC GRADIENT DESCENT WITH WARMUP
 
-#### For [Loss-Functions-Package-Tensorflow-Keras-PyTorch](https://github.com/Mr-TalhaIlyas/Loss-Functions-Package-Tensorflow-Keras-PyTorch/blob/main/README.md)
+#### For [Loss-Functions-Package-Tensorflow-Keras-PyTorch](https://github.com/Mr-TalhaIlyas/Loss-Functions-Package-Tensorflow-Keras-PyTorch/)
 #### For [Evaluation-Metrics-Package-Tensorflow-PyTorch-Keras](https://github.com/Mr-TalhaIlyas/Evaluation-Metrics-Package-Tensorflow-PyTorch-Keras/)
 
 ### Step Decay
