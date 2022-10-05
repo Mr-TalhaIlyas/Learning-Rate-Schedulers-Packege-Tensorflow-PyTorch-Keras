@@ -154,12 +154,6 @@ LR_schedule = CustomLearningRateScheduler(polynomial_decay, initial_lr, lr_decay
 ## PyTorch Implementation
 
 ```python
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Sep 30 15:05:16 2022
-
-@author: talha
-"""
 
 import math
 
@@ -227,8 +221,14 @@ class LR_Scheduler(object):
 ### Usage
 
 ```
+scheduler = LR_Scheduler(config['lr_schedule'], config['learning_rate'], config['Epoch'],
+                         iters_per_epoch=len(train_loader), warmup_epochs=config['warmup_epochs'])
 
-
+for epoch in range(config['Epoch']):
+    for step, data_batch in enumerate(train_data):
+        # update learning rate in optimizer
+        scheduler(optimizer, step, epoch, best_iou)
+        # train code here
 ```
 ## Visualization
 ```python
