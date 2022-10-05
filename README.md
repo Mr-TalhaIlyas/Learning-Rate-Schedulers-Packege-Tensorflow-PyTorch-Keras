@@ -187,7 +187,7 @@ class LR_Scheduler(object):
         self.warmup_iters = warmup_epochs * iters_per_epoch
         
 
-    def __call__(self, optimizer, i, epoch, best_pred):
+    def __call__(self, optimizer, i, epoch):
         T = epoch * self.iters_per_epoch + i
         if self.mode == 'cos':
             lr = 0.5 * self.lr * (1 + math.cos(1.0 * T / self.N * math.pi))
@@ -201,7 +201,6 @@ class LR_Scheduler(object):
         if self.warmup_iters > 0 and T < self.warmup_iters:
             lr = lr * 1.0 * T / self.warmup_iters
         if epoch > self.epoch:
-            # print(f'=> Epoches: {epoch}, Learning Rate: {lr:.7f}, Previous Best mIOU: {best_pred:.2f}')
             self.epoch = epoch
         assert lr >= 0
         self._adjust_learning_rate(optimizer, lr)
@@ -227,7 +226,7 @@ scheduler = LR_Scheduler(config['lr_schedule'], config['learning_rate'], config[
 for epoch in range(config['Epoch']):
     for step, data_batch in enumerate(train_data):
         # update learning rate in optimizer
-        scheduler(optimizer, step, epoch, best_iou)
+        scheduler(optimizer, step, epoch)
         # train code here
 ```
 ## Visualization
