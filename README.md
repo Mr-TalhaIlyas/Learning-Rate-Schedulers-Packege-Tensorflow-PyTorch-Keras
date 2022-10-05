@@ -220,7 +220,7 @@ class LR_Scheduler(object):
 ```
 ### Usage
 
-```
+``` python
 scheduler = LR_Scheduler(config['lr_schedule'], config['learning_rate'], config['Epoch'],
                          iters_per_epoch=len(train_loader), warmup_epochs=config['warmup_epochs'])
 
